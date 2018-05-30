@@ -10,23 +10,18 @@ import numpy as np
 from sklearn import linear_model
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
+
 #load dataset
 df = pd.read_csv('Flaveria.csv')#['N Level','Species','Plant Weight(g)']
-#df = pd.read_csv(url)
-df.head()
 df = pd.get_dummies(df)
-#print(df)
-df.columns
-#df.drop(labels=['N level_L', 'species_bidentis'], axis=1,inplace=True)
-#print(df.max() - df.min())
 
+# #############################################################################
+# Fit LinearRegression models
 from sklearn.linear_model import LinearRegression
-#data = df.drop(['Plant Weight(g)'], axis=1)
+
 data = df.copy()
 
 data_X = df.loc[:, df.columns != 'Plant Weight(g)']
-#data = df.iloc[:, 1:2]
-print(data)
 target_y = df.iloc[:,0]
 
 from sklearn.model_selection import train_test_split
@@ -49,4 +44,4 @@ print('Coefficients: \n', regr.coef_)
 print("Mean squared error: %.2f"
       % mean_squared_error(target_y_test, target_y_pred))
 # Explained variance score: 1 is perfect prediction
-print('Variance score: %.2f' % r2_score(target_y_test, target_y_pred))
+print('Variance score or r2score: %.2f' % r2_score(target_y_test, target_y_pred))
