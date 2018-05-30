@@ -13,30 +13,24 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 #load dataset
 df = pd.read_csv('Flaveria.csv')#['N Level','Species','Plant Weight(g)']
-#df = pd.read_csv(url)
-df.head()
 df = pd.get_dummies(df)
-#print(df)
-df.columns
-#df.drop(labels=['N level_L', 'species_bidentis'], axis=1,inplace=True)
-#print(df.max() - df.min())
 
+# #############################################################################
+# Fit LinearRegression models
 from sklearn.linear_model import LinearRegression
-#data = df.drop(['Plant Weight(g)'], axis=1)
 data = df.copy()
 
+#specify features and target
 data_X = df.loc[:, df.columns != 'Plant Weight(g)']
-#data = df.iloc[:, 1:2]
-print(data)
 target_y = df.iloc[:,0]
 
 # Split the data into training/testing sets
-data_X_train = data_X[:-10]
-data_X_test = data_X[-10:]
+data_X_train = data_X[:-20]
+data_X_test = data_X[-20:]
 
 # Split the targets into training/testing sets
-target_y_train = target_y[:-10]
-target_y_test = target_y[-10:]
+target_y_train = target_y[:-20]
+target_y_test = target_y[-20:]
 
 # Create linear regression object
 regr = linear_model.LinearRegression()
@@ -49,42 +43,17 @@ target_y_pred = regr.predict(data_X_test)
 
 # The coefficients
 print('Coefficients: \n', regr.coef_)
+
 # The mean squared error
 print("Mean squared error: %.2f"
       % mean_squared_error(target_y_test, target_y_pred))
+
 # Explained variance score: 1 is perfect prediction
-print('Variance score: %.2f' % r2_score(target_y_test, target_y_pred))
-
-# Plot outputs
-#plt.scatter(data_X_test, target_y_test,  color='black')
-#plt.plot(data_X_test, target_y_pred, color='blue', linewidth=3)
-
-#plt.xticks(())
-#plt.yticks(())
-
-#plt.show()
+print('Variance score or r2score: %.2f' % r2_score(target_y_test, target_y_pred))
 
 
-#lr = LinearRegression(fit_intercept=True)
-#lr.fit(data, target)
 
-#from sklearn.metrics import mean_squared_error
 
-# R^2
-#print('R2 score using linear regression before split into train and test')
-#print(lr.score(data, target)) 
-
-#predictions = lr.predict(data)
-#mse = mean_squared_error(target, predictions)
-#rmse = np.sqrt(mse)
-#print(rmse)
-
-#from sklearn.model_selection import train_test_split
-
-#X_train, X_test, y_train, y_test = train_test_split(data, target, shuffle=True,
-#                                                    test_size=0.5, random_state=0)
-#lr_split = LinearRegression(fit_intercept=True)
-#lr_split.fit(X_train, y_train)
 
 #functions to Calculate ISE and OSE
 def calc_ISE(data_X_train, target_y_train, model):
