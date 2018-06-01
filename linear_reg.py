@@ -33,10 +33,7 @@ for index, value in enumerate(X):
         X_index.append(index)
         X_test.append(value)
         y_test.append(y[index])
-#        X_train = np.delete(X_train,index)
         
-#X_train = np.delete(X, X_index)
-
 X_train = [x for i,x in enumerate(X) if i not in X_index]
 y_train = [x for i,x in enumerate(y) if i not in X_index]
 
@@ -47,7 +44,6 @@ regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 
 
-
 #print(regressor.intercept_) 
 
 #print(regressor.coef_)  
@@ -55,11 +51,10 @@ regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
 df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred}) 
-print(df)
-# The mean squared error
-print("From Liner regression")
-print("Mean squared error: %.2f"
-      % mean_squared_error(y_test, y_pred))
+#print(df)
+
+#print("Mean squared error: %.2f"
+#      % mean_squared_error(y_test, y_pred))
 # Explained variance score: 1 is perfect prediction
-print('Variance score or r2 score: %.2f' % r2_score(y_test, y_pred))
+print('r2 score: %.2f' % r2_score(y_test, y_pred))
 
